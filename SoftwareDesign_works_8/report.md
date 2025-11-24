@@ -1,14 +1,13 @@
-# Отчёт по реализации: Companies & Vacancies
+# Звіт 8 лабораторної роботи
 
-Дата: 2025-11-24
 
-**Краткое описание реализованного функционала**
+**Короткий опис реалізованого функціоналу**
 
-- **Ресурсы**: реализованы CRUD для `companies` и `vacancies`.
-- **Маршруты**: файл-ориентированные маршруты TanStack Router: `/companies`, `/companies/new`, `/companies/$companyId`, `/vacancies`, `/vacancies/new`, `/vacancies/$vacancyId`.
+- **Ресурси**: реалізовано CRUD для `companies` і `vacancies`.
+- **Маршрути**: файл-орієнтовані маршрути TanStack Router: `/companies`, `/companies/new`, `/companies/$companyId`, `/vacancies`, `/vacancies/new`, `/vacancies/$vacancyId`.
 
-**Приклади ключового коду**
-- Xуки для TanStack Query
+**Приклади ключевого коду**
+- Хуки для TanStack Query
 ```ts
 const getVacancies = async (): Promise<Vacancy[]> => {
   const res = await apiClient.get('/vacancies');
@@ -55,36 +54,36 @@ const schema = z.object({
 });
 ```
 
-**Скриншоты роботы программы**
-- Страница компаний
+**Скріншоти роботи програми**
+- Сторінка компаній
 ![companies page](images/companiesPage.png)
 
 - Вкладка Network у DevTools
 ![network](images/network.png)
 
-- Страница входа
+- Сторінка входу
 ![login](images/login.png)
 
-- Ошибка валидации Zod
+- Помилка валідації Zod
 ![zod](images/zod.png)
 
-**Комментарии по особенностям реализации и проблемам, с которыми столкнулись**
+**Коментарі щодо особливостей реалізації та проблем, з якими зіткнулися**
 
-- Порядок хуков
+- Порядок хуків
 
-  Были случаи раннего `return` (например, `if (isLoading) return <div>Loading...</div>`) до вызова некоторых хуков в `VacancyEditPage.tsx`. Это вызвало ошибку React о смене порядка хуков. Ошибка устранена: все хуки вызываются последовательно, возвраты выполняются после них.
+  Були випадки раннього `return` (наприклад, `if (isLoading) return <div>Loading...</div>`) до виклику деяких хуків у `VacancyEditPage.tsx`. Це спричинило помилку React про зміну порядку хуків. Помилка виправлена: усі хуки викликаються послідовно, повернення виконуються після них.
 
-- Формат отправки (x-www-form-urlencoded)
+- Формат відправки (x-www-form-urlencoded)
   
-  Для совместимости с бэкендом (Postman-примеры) create/update формируются через `URLSearchParams` и отправляются с заголовком `application/x-www-form-urlencoded`. Если бекенд ожидает JSON, потребуется изменить контракт. Сейчас в коде есть двоичная поддержка полей `employer_id` и `companyId` — это подстраховка.
+  Для сумісності з бекендом (приклади в Postman) create/update формуються через `URLSearchParams` і відправляються з заголовком `application/x-www-form-urlencoded`. Якщо бекенд очікує JSON, потрібно змінити контракт. Зараз у коді є подвійна підтримка полів `employer_id` і `companyId` — це перестраховка.
 
-- Нормализация ответов
+- Нормалізація відповідей
   
-  Бэкенд возвращает как "сырой" массив, так и конверты `{ message, data }` или `{ rows: [...] }`. В хуках есть нормализация (`payload.data`, `payload.rows`, `payload.payload`), чтобы UI надёжно работал независимо от формы ответа.
+  Бекенд повертає як "сирий" масив, так і обгортки `{ message, data }` або `{ rows: [...] }`. У хуках є нормалізація (`payload.data`, `payload.rows`, `payload.payload`), щоб UI надійно працював незалежно від форми відповіді.
 
 - Роутинг
   
-  Проект использует сгенерированный `routeTree.gen.ts` от TanStack Router. При добавлении/переименовании файлов маршрутов нужно регенерировать дерево маршрутов.
+  Проєкт використовує згенерований `routeTree.gen.ts` від TanStack Router. При додаванні/перейменуванні файлів маршрутів потрібно регенерувати дерево маршрутів.
 
 
 
