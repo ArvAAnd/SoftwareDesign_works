@@ -1,5 +1,7 @@
 # Робота з Dockerfile та Docker Compose
 
+#### Репозиторій проекту - https://github.com/ArvAAnd/hello-docker
+
 - Працюючий Flask + Redis у Compose
 ![Працюючий Flask + Redis у Compose](images/1.png)
 - Коректний Dockerfile з усіма директивами
